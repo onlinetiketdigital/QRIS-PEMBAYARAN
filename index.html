@@ -1,14 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Konfirmasi Pembayaran</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Digital Payment Secure Checkout</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
+:root{
+--primary:#00e5ff;
+--secondary:#7b61ff;
+--success:#00ff88;
+--glass:rgba(255,255,255,.08);
+}
+
 *{
 margin:0;
 padding:0;
@@ -17,150 +25,233 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:
-radial-gradient(circle at top,#1e3c72,#0a0f1f 60%);
+overflow-x:hidden;
 min-height:100vh;
-padding:20px;
-color:white;
 display:flex;
 justify-content:center;
 align-items:center;
+padding:20px;
+background:#050816;
+position:relative;
 }
 
-.container{
-width:100%;
-max-width:700px;
+body::before{
+content:'';
+position:fixed;
+width:800px;
+height:800px;
+background:radial-gradient(circle,#00e5ff40,transparent 70%);
+top:-250px;
+left:-250px;
+animation:float1 12s linear infinite;
+}
+
+body::after{
+content:'';
+position:fixed;
+width:700px;
+height:700px;
+background:radial-gradient(circle,#7b61ff50,transparent 70%);
+bottom:-250px;
+right:-250px;
+animation:float2 15s linear infinite;
+}
+
+@keyframes float1{
+50%{transform:translate(120px,80px);}
+}
+
+@keyframes float2{
+50%{transform:translate(-120px,-80px);}
 }
 
 .card{
-background:rgba(255,255,255,0.06);
-backdrop-filter:blur(25px);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:30px;
-padding:30px;
+width:100%;
+max-width:760px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(30px);
+border:1px solid rgba(255,255,255,.15);
+border-radius:35px;
+padding:35px;
+position:relative;
+overflow:hidden;
 box-shadow:
-0 0 40px rgba(0,255,255,.15),
-0 0 80px rgba(0,255,255,.08);
-animation:glow 3s infinite alternate;
+0 0 50px rgba(0,229,255,.15),
+0 0 120px rgba(123,97,255,.1);
 }
 
-@keyframes glow{
-from{
-box-shadow:
-0 0 30px rgba(0,255,255,.15),
-0 0 60px rgba(0,255,255,.08);
-}
-to{
-box-shadow:
-0 0 60px rgba(0,255,255,.3),
-0 0 120px rgba(0,255,255,.15);
-}
+.card::before{
+content:'';
+position:absolute;
+inset:-2px;
+background:linear-gradient(
+90deg,
+transparent,
+#00e5ff,
+#7b61ff,
+#00e5ff,
+transparent
+);
+background-size:400% 100%;
+animation:borderRun 6s linear infinite;
+z-index:-1;
+filter:blur(25px);
 }
 
-.title{
+@keyframes borderRun{
+0%{background-position:0%}
+100%{background-position:400%}
+}
+
+.logo{
 text-align:center;
 font-size:30px;
 font-weight:800;
-margin-bottom:15px;
+color:white;
+margin-bottom:5px;
 }
 
-.timer-box{
-background:#ff4444;
-padding:12px;
-border-radius:15px;
+.subtitle{
 text-align:center;
-font-size:28px;
-font-weight:800;
+opacity:.8;
 margin-bottom:25px;
-box-shadow:0 0 30px rgba(255,0,0,.4);
+}
+
+.timer{
+background:linear-gradient(135deg,#ff4d4d,#ff2222);
+border-radius:25px;
+padding:18px;
+text-align:center;
+font-size:34px;
+font-weight:800;
+color:white;
+box-shadow:0 0 35px rgba(255,0,0,.4);
+margin-bottom:25px;
 }
 
 .qris-box{
-background:rgba(255,255,255,.08);
-border-radius:25px;
 padding:25px;
+border-radius:30px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
 text-align:center;
 margin-bottom:25px;
-border:1px solid rgba(255,255,255,.15);
 }
 
 .qris-box img{
 width:100%;
-max-width:320px;
-border-radius:20px;
+max-width:340px;
 background:white;
-padding:10px;
-box-shadow:0 0 40px rgba(0,255,255,.25);
+padding:15px;
+border-radius:25px;
+box-shadow:
+0 0 30px rgba(0,229,255,.2),
+0 0 60px rgba(123,97,255,.2);
+transition:.4s;
 }
 
-.instruction{
-background:rgba(255,255,255,.05);
-padding:20px;
-border-radius:20px;
+.qris-box img:hover{
+transform:scale(1.03);
+}
+
+.steps{
+background:rgba(255,255,255,.04);
+padding:25px;
+border-radius:25px;
 margin-bottom:25px;
 }
 
-.instruction h3{
+.steps h3{
 margin-bottom:15px;
 }
 
-.instruction li{
-margin:10px 0;
+.steps li{
+list-style:none;
+margin:12px 0;
+padding-left:10px;
 }
 
-.upload-box{
-border:2px dashed rgba(255,255,255,.3);
-padding:25px;
-border-radius:20px;
+.steps li::before{
+content:"✓";
+color:#00ff88;
+font-weight:bold;
+margin-right:10px;
+}
+
+.upload-area{
+border:2px dashed rgba(255,255,255,.2);
+border-radius:25px;
+padding:30px;
 text-align:center;
 margin-bottom:20px;
 background:rgba(255,255,255,.03);
 }
 
+.upload-area h3{
+margin-bottom:15px;
+}
+
 input[type=file]{
 width:100%;
-padding:10px;
+padding:12px;
 color:white;
 }
 
-.checkbox-area{
-margin-bottom:25px;
+.preview{
+margin-top:15px;
+display:none;
+}
+
+.preview img{
+width:180px;
+border-radius:15px;
+border:2px solid #00ff88;
+}
+
+.confirm{
 display:flex;
 gap:10px;
+margin-bottom:25px;
 align-items:flex-start;
 }
 
-.checkbox-area input{
-margin-top:5px;
-transform:scale(1.3);
+.confirm input{
+transform:scale(1.4);
+margin-top:4px;
 }
 
-button{
+.btn{
 width:100%;
-padding:18px;
+padding:20px;
 border:none;
-border-radius:20px;
+border-radius:25px;
 font-size:18px;
 font-weight:700;
-cursor:pointer;
-transition:.3s;
-background:#666;
+cursor:not-allowed;
+background:#555;
 color:white;
+transition:.4s;
 }
 
-button.active{
-background:linear-gradient(45deg,#00e676,#00c853);
-box-shadow:0 0 30px rgba(0,255,120,.4);
+.btn.active{
+cursor:pointer;
+background:linear-gradient(
+135deg,
+#00ff88,
+#00d26a
+);
+box-shadow:
+0 0 25px rgba(0,255,136,.4);
 }
 
-button.active:hover{
+.btn.active:hover{
 transform:translateY(-2px);
 }
 
-.loading-screen{
+.loading{
 position:fixed;
 inset:0;
-background:#07101f;
+background:#030816;
 display:none;
 justify-content:center;
 align-items:center;
@@ -168,14 +259,13 @@ flex-direction:column;
 z-index:99999;
 }
 
-.loader{
-width:120px;
-height:120px;
-border:10px solid rgba(255,255,255,.15);
-border-top:10px solid #00ffcc;
+.ring{
+width:130px;
+height:130px;
 border-radius:50%;
+border:8px solid rgba(255,255,255,.1);
+border-top:8px solid #00e5ff;
 animation:spin 1s linear infinite;
-margin-bottom:30px;
 }
 
 @keyframes spin{
@@ -185,143 +275,202 @@ transform:rotate(360deg);
 }
 
 .loading-text{
+margin-top:35px;
 font-size:22px;
 font-weight:700;
 text-align:center;
-max-width:500px;
-line-height:1.8;
 padding:0 20px;
 }
 
-.note{
-text-align:center;
-margin-top:20px;
+.loading-sub{
+margin-top:12px;
 opacity:.8;
-font-size:14px;
 }
+
+.footer{
+margin-top:25px;
+text-align:center;
+opacity:.7;
+font-size:13px;
+}
+
 </style>
 </head>
-
 <body>
 
-<div class="container">
 <div class="card">
 
-<h1 class="title">PEMBAYARAN QRIS</h1>
+<div class="logo">
+DIGITAL PAYMENT
+</div>
 
-<div class="timer-box" id="timer">
+<div class="subtitle">
+Secure QRIS Checkout System
+</div>
+
+<div class="timer" id="timer">
 03:00
 </div>
 
 <div class="qris-box">
-<img src="qris-pembayaran.png" alt="QRIS">
+<img src="qris-pembayaran.png">
 </div>
 
-<div class="instruction">
-<h3>Cara Melakukan Pembayaran</h3>
+<div class="steps">
 
-<ul>
-<li>📌 Scan Kode QRIS Pembayaran</li>
-<li>📌 Masukan Nominal Jumlah Tiket</li>
-<li>📌 Masukan PIN Pembayaran</li>
-<li>📌 Tunggu Proses Pembayaran Success</li>
-</ul>
+<h3>Instruksi Pembayaran</h3>
+
+<li>Scan Kode QRIS Pembayaran</li>
+<li>Masukkan Nominal Jumlah Tiket</li>
+<li>Masukkan PIN Pembayaran</li>
+<li>Tunggu Pembayaran Berhasil</li>
+
 </div>
 
-<div class="upload-box">
+<div class="upload-area">
+
 <h3>Upload Bukti Pembayaran</h3>
-<br>
+
 <input type="file" id="bukti" accept="image/*">
+
+<div class="preview" id="preview">
+<img id="previewImg">
 </div>
 
-<div class="checkbox-area">
-<input type="checkbox" id="setuju">
-<label for="setuju">
-Saya telah melakukan pembayaran sesuai nominal yang ditentukan.
+</div>
+
+<div class="confirm">
+
+<input type="checkbox" id="check">
+
+<label>
+Saya telah melakukan pembayaran sesuai nominal yang ditentukan dan data yang saya kirimkan adalah benar.
 </label>
+
 </div>
 
-<button id="btnKonfirmasi">
+<button id="submitBtn" class="btn">
 KONFIRMASI PEMBAYARAN
 </button>
 
-<div class="note">
-Pastikan bukti pembayaran jelas dan nominal sesuai.
+<div class="footer">
+Digital Ticketing Verification System
 </div>
 
 </div>
-</div>
 
-<div class="loading-screen" id="loading">
-<div class="loader"></div>
+<div class="loading" id="loading">
+
+<div class="ring"></div>
 
 <div class="loading-text">
-PEMBAYARAN SEDANG DIPROSES<br>
-SILAHKAN TUNGGU...
+PEMBAYARAN SEDANG DIPROSES
 </div>
+
+<div class="loading-sub">
+Silahkan tunggu, sistem sedang melakukan verifikasi transaksi...
+</div>
+
 </div>
 
 <script>
 
-const redirectLink =
-"https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/";
-
-const expiredLink =
+const redirectURL =
 "https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/";
 
 const fileInput =
 document.getElementById("bukti");
 
-const checkbox =
-document.getElementById("setuju");
+const check =
+document.getElementById("check");
 
-const button =
-document.getElementById("btnKonfirmasi");
+const btn =
+document.getElementById("submitBtn");
 
-function cekAktif(){
-if(fileInput.files.length > 0 && checkbox.checked){
-button.disabled=false;
-button.classList.add("active");
+const preview =
+document.getElementById("preview");
+
+const previewImg =
+document.getElementById("previewImg");
+
+function validate(){
+
+if(
+fileInput.files.length > 0 &&
+check.checked
+){
+btn.disabled=false;
+btn.classList.add("active");
 }else{
-button.disabled=true;
-button.classList.remove("active");
+btn.disabled=true;
+btn.classList.remove("active");
 }
+
 }
 
-button.disabled=true;
+fileInput.addEventListener("change",function(){
 
-fileInput.addEventListener("change",cekAktif);
-checkbox.addEventListener("change",cekAktif);
+validate();
 
-button.addEventListener("click",()=>{
+if(this.files[0]){
 
-document.getElementById("loading").style.display="flex";
+preview.style.display="block";
+
+previewImg.src=
+URL.createObjectURL(
+this.files[0]
+);
+
+}
+
+});
+
+check.addEventListener("change",validate);
+
+btn.disabled=true;
+
+btn.addEventListener("click",function(){
+
+document.getElementById("loading")
+.style.display="flex";
 
 setTimeout(()=>{
-window.location.href=redirectLink;
+window.location.href=redirectURL;
 },180000);
 
 });
 
-let waktu=180;
+let time=180;
 
-const timer=document.getElementById("timer");
+const timer =
+document.getElementById("timer");
 
-const hitung=setInterval(()=>{
+const countdown =
+setInterval(()=>{
 
-let menit=Math.floor(waktu/60);
-let detik=waktu%60;
+let m =
+Math.floor(time/60);
+
+let s =
+time%60;
 
 timer.innerHTML=
-String(menit).padStart(2,"0")+":"+
-String(detik).padStart(2,"0");
+String(m).padStart(2,'0')
++
+":"
++
+String(s).padStart(2,'0');
 
-if(waktu<=0){
-clearInterval(hitung);
-window.location.href=expiredLink;
+if(time<=0){
+
+clearInterval(countdown);
+
+window.location.href=
+redirectURL;
+
 }
 
-waktu--;
+time--;
 
 },1000);
 
