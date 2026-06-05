@@ -2,477 +2,538 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Digital Payment Secure Checkout</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Konfirmasi Pembayaran Tiket Digital</title>
 
 <style>
-
-:root{
---primary:#00e5ff;
---secondary:#7b61ff;
---success:#00ff88;
---glass:rgba(255,255,255,.08);
-}
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-overflow-x:hidden;
-min-height:100vh;
+background:#02132d;
+padding:20px;
 display:flex;
 justify-content:center;
-align-items:center;
-padding:20px;
-background:#050816;
-position:relative;
 }
 
-body::before{
-content:'';
-position:fixed;
-width:800px;
-height:800px;
-background:radial-gradient(circle,#00e5ff40,transparent 70%);
-top:-250px;
-left:-250px;
-animation:float1 12s linear infinite;
-}
-
-body::after{
-content:'';
-position:fixed;
-width:700px;
-height:700px;
-background:radial-gradient(circle,#7b61ff50,transparent 70%);
-bottom:-250px;
-right:-250px;
-animation:float2 15s linear infinite;
-}
-
-@keyframes float1{
-50%{transform:translate(120px,80px);}
-}
-
-@keyframes float2{
-50%{transform:translate(-120px,-80px);}
-}
-
-.card{
+.container{
 width:100%;
-max-width:760px;
-background:rgba(255,255,255,.06);
-backdrop-filter:blur(30px);
-border:1px solid rgba(255,255,255,.15);
+max-width:900px;
+background:#f4f5f8;
 border-radius:35px;
-padding:35px;
-position:relative;
 overflow:hidden;
-box-shadow:
-0 0 50px rgba(0,229,255,.15),
-0 0 120px rgba(123,97,255,.1);
+box-shadow:0 0 30px rgba(0,0,0,.4);
 }
 
-.card::before{
+.top-section{
+background:
+linear-gradient(135deg,#03102f,#00194d,#00102d);
+padding:40px 25px 120px;
+position:relative;
+text-align:center;
+color:#fff;
+}
+
+.top-section::after{
 content:'';
 position:absolute;
-inset:-2px;
-background:linear-gradient(
-90deg,
-transparent,
-#00e5ff,
-#7b61ff,
-#00e5ff,
-transparent
-);
-background-size:400% 100%;
-animation:borderRun 6s linear infinite;
-z-index:-1;
-filter:blur(25px);
+left:0;
+right:0;
+bottom:-1px;
+height:120px;
+background:#f4f5f8;
+border-radius:100% 100% 0 0;
 }
 
-@keyframes borderRun{
-0%{background-position:0%}
-100%{background-position:400%}
+.shield{
+font-size:45px;
+margin-bottom:10px;
+color:#ffc76b;
 }
 
-.logo{
-text-align:center;
-font-size:30px;
+.title{
+font-size:52px;
 font-weight:800;
-color:white;
-margin-bottom:5px;
+letter-spacing:1px;
 }
 
 .subtitle{
-text-align:center;
-opacity:.8;
-margin-bottom:25px;
+font-size:26px;
+color:#ffc76b;
+letter-spacing:5px;
+margin-top:5px;
+}
+
+.desc{
+margin-top:40px;
+font-size:18px;
+}
+
+.timer-box{
+position:absolute;
+left:50%;
+transform:translateX(-50%);
+bottom:-50px;
+width:85%;
+background:linear-gradient(135deg,#08245f,#06143d);
+border-radius:30px;
+padding:25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:2;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+border:1px solid rgba(255,255,255,.15);
+}
+
+.timer-left{
+display:flex;
+align-items:center;
+gap:15px;
+color:#fff;
+}
+
+.timer-icon{
+font-size:50px;
+color:#ffc76b;
+}
+
+.timer-text{
+font-size:18px;
+font-weight:600;
+line-height:1.4;
 }
 
 .timer{
-background:linear-gradient(135deg,#ff4d4d,#ff2222);
-border-radius:25px;
-padding:18px;
-text-align:center;
-font-size:34px;
-font-weight:800;
-color:white;
-box-shadow:0 0 35px rgba(255,0,0,.4);
-margin-bottom:25px;
+font-size:72px;
+font-weight:700;
+color:#fff;
 }
 
-.qris-box{
-padding:25px;
+.content{
+padding:90px 30px 35px;
+}
+
+.section-title{
+text-align:center;
+font-size:20px;
+font-weight:700;
+color:#14285a;
+margin-bottom:20px;
+}
+
+.qr-box{
+background:#eceef2;
+padding:20px;
 border-radius:30px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.1);
-text-align:center;
-margin-bottom:25px;
+max-width:600px;
+margin:auto;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
-.qris-box img{
+.qr-box img{
 width:100%;
-max-width:340px;
-background:white;
-padding:15px;
-border-radius:25px;
-box-shadow:
-0 0 30px rgba(0,229,255,.2),
-0 0 60px rgba(123,97,255,.2);
-transition:.4s;
+display:block;
+border-radius:10px;
 }
 
-.qris-box img:hover{
-transform:scale(1.03);
+.guide{
+margin-top:30px;
+background:linear-gradient(90deg,#08245f,#00103d);
+border-radius:25px;
+padding:25px;
+color:white;
+}
+
+.guide-title{
+text-align:center;
+font-size:18px;
+font-weight:700;
+color:#ffc76b;
+margin-bottom:25px;
 }
 
 .steps{
-background:rgba(255,255,255,.04);
-padding:25px;
-border-radius:25px;
-margin-bottom:25px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
 }
 
-.steps h3{
-margin-bottom:15px;
-}
-
-.steps li{
-list-style:none;
-margin:12px 0;
-padding-left:10px;
-}
-
-.steps li::before{
-content:"✓";
-color:#00ff88;
-font-weight:bold;
-margin-right:10px;
-}
-
-.upload-area{
-border:2px dashed rgba(255,255,255,.2);
-border-radius:25px;
-padding:30px;
+.step{
 text-align:center;
-margin-bottom:20px;
-background:rgba(255,255,255,.03);
 }
 
-.upload-area h3{
+.num{
+width:45px;
+height:45px;
+border-radius:50%;
+background:#19479b;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto;
+font-size:22px;
+font-weight:700;
 margin-bottom:15px;
 }
 
-input[type=file]{
-width:100%;
-padding:12px;
-color:white;
+.icon{
+font-size:40px;
+margin-bottom:12px;
+}
+
+.step p{
+font-size:14px;
+line-height:1.5;
+}
+
+.upload-card{
+margin-top:25px;
+background:#fff;
+border-radius:25px;
+padding:25px;
+display:grid;
+grid-template-columns:1.2fr 1fr 1.3fr;
+gap:20px;
+align-items:center;
+}
+
+.upload-box{
+border:2px dashed #4c63a6;
+border-radius:15px;
+padding:35px 20px;
+text-align:center;
+cursor:pointer;
+}
+
+.upload-box input{
+display:none;
+}
+
+.upload-icon{
+font-size:60px;
+color:#1f4ca3;
+}
+
+.upload-box p{
+margin-top:15px;
+line-height:1.6;
+color:#2c3e60;
 }
 
 .preview{
-margin-top:15px;
-display:none;
+background:#f4f4f7;
+height:220px;
+border-radius:15px;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
 }
 
 .preview img{
-width:180px;
-border-radius:15px;
-border:2px solid #00ff88;
+width:100%;
+height:100%;
+object-fit:contain;
+display:none;
 }
 
-.confirm{
+.preview-text{
+color:#777;
+text-align:center;
+}
+
+.confirm-area{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.checkbox{
 display:flex;
 gap:10px;
-margin-bottom:25px;
 align-items:flex-start;
+margin-bottom:20px;
+font-size:17px;
+color:#20345c;
 }
 
-.confirm input{
-transform:scale(1.4);
-margin-top:4px;
-}
-
-.btn{
-width:100%;
-padding:20px;
-border:none;
-border-radius:25px;
-font-size:18px;
-font-weight:700;
-cursor:not-allowed;
-background:#555;
+button{
+background:#083d96;
 color:white;
-transition:.4s;
-}
-
-.btn.active{
-cursor:pointer;
-background:linear-gradient(
-135deg,
-#00ff88,
-#00d26a
-);
-box-shadow:
-0 0 25px rgba(0,255,136,.4);
-}
-
-.btn.active:hover{
-transform:translateY(-2px);
-}
-
-.loading{
-position:fixed;
-inset:0;
-background:#030816;
-display:none;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-z-index:99999;
-}
-
-.ring{
-width:130px;
-height:130px;
-border-radius:50%;
-border:8px solid rgba(255,255,255,.1);
-border-top:8px solid #00e5ff;
-animation:spin 1s linear infinite;
-}
-
-@keyframes spin{
-100%{
-transform:rotate(360deg);
-}
-}
-
-.loading-text{
-margin-top:35px;
-font-size:22px;
+border:none;
+padding:18px;
+font-size:28px;
 font-weight:700;
-text-align:center;
-padding:0 20px;
+border-radius:15px;
+cursor:pointer;
+opacity:.5;
+pointer-events:none;
 }
 
-.loading-sub{
-margin-top:12px;
-opacity:.8;
+button.active{
+opacity:1;
+pointer-events:auto;
 }
 
-.footer{
-margin-top:25px;
-text-align:center;
-opacity:.7;
+.note{
 font-size:13px;
+text-align:center;
+margin-top:10px;
+color:#555;
 }
 
+.footer-note{
+margin-top:20px;
+background:#2f3f66;
+color:white;
+padding:15px;
+text-align:center;
+border-radius:50px;
+font-size:14px;
+}
+
+@media(max-width:768px){
+
+.title{
+font-size:32px;
+}
+
+.subtitle{
+font-size:18px;
+}
+
+.timer-box{
+flex-direction:column;
+gap:15px;
+}
+
+.timer{
+font-size:48px;
+}
+
+.steps{
+grid-template-columns:1fr;
+}
+
+.upload-card{
+grid-template-columns:1fr;
+}
+
+.content{
+padding-top:120px;
+}
+}
 </style>
 </head>
 <body>
 
-<div class="card">
+<div class="container">
 
-<div class="logo">
-DIGITAL PAYMENT
+<div class="top-section">
+
+<div class="shield">🛡️</div>
+
+<div class="title">KONFIRMASI PEMBAYARAN</div>
+<div class="subtitle">TIKET DIGITAL</div>
+
+<div class="desc">
+Silahkan lakukan Pembayaran Sebelum Kode QR Expired
 </div>
 
-<div class="subtitle">
-Secure QRIS Checkout System
+<div class="timer-box">
+
+<div class="timer-left">
+<div class="timer-icon">🕒</div>
+<div class="timer-text">
+SISA WAKTU<br>
+PEMBAYARAN
+</div>
 </div>
 
-<div class="timer" id="timer">
-03:00
+<div class="timer" id="countdown">02:59</div>
+
 </div>
 
-<div class="qris-box">
-<img src="qris-pembayaran.png">
+</div>
+
+<div class="content">
+
+<div class="section-title">
+SCAN QRIS PEMBAYARAN
+</div>
+
+<div class="qr-box">
+<img src="qris-pembayaran.png" alt="QRIS Pembayaran">
+</div>
+
+<div class="guide">
+
+<div class="guide-title">
+PETUNJUK PEMBAYARAN
 </div>
 
 <div class="steps">
 
-<h3>Instruksi Pembayaran</h3>
+<div class="step">
+<div class="num">1</div>
+<div class="icon">📱</div>
+<p>Scan kode QRIS pada aplikasi pembayaran</p>
+</div>
 
-<li>Scan Kode QRIS Pembayaran</li>
-<li>Masukkan Nominal Jumlah Tiket</li>
-<li>Masukkan PIN Pembayaran</li>
-<li>Tunggu Pembayaran Berhasil</li>
+<div class="step">
+<div class="num">2</div>
+<div class="icon">💰</div>
+<p>Masukkan nominal sesuai jumlah tiket yang dibeli</p>
+</div>
+
+<div class="step">
+<div class="num">3</div>
+<div class="icon">🔒</div>
+<p>Masukkan PIN aplikasi pembayaran</p>
+</div>
+
+<div class="step">
+<div class="num">4</div>
+<div class="icon">✅</div>
+<p>Tunggu hingga pembayaran berhasil</p>
+</div>
+
+<div class="step">
+<div class="num">5</div>
+<div class="icon">☁️</div>
+<p>Upload bukti pembayaran pada halaman ini</p>
+</div>
 
 </div>
 
-<div class="upload-area">
-
-<h3>Upload Bukti Pembayaran</h3>
-
-<input type="file" id="bukti" accept="image/*">
-
-<div class="preview" id="preview">
-<img id="previewImg">
 </div>
 
-</div>
+<div class="upload-card">
 
-<div class="confirm">
+<label class="upload-box">
 
-<input type="checkbox" id="check">
+<input type="file" id="upload" accept="image/*">
 
-<label>
-Saya telah melakukan pembayaran sesuai nominal yang ditentukan dan data yang saya kirimkan adalah benar.
+<div class="upload-icon">☁️</div>
+
+<p>
+Klik atau pilih gambar<br>
+Format : JPG, PNG, JPEG<br>
+Maks. 5MB
+</p>
+
 </label>
 
+<div class="preview">
+
+<img id="previewImg">
+
+<div class="preview-text" id="previewText">
+Belum ada gambar dipilih
 </div>
 
-<button id="submitBtn" class="btn">
-KONFIRMASI PEMBAYARAN
+</div>
+
+<div class="confirm-area">
+
+<label class="checkbox">
+<input type="checkbox" id="agree">
+<span>Saya telah melakukan pembayaran sesuai nominal yang tertera.</span>
+</label>
+
+<button id="confirmBtn">
+🔒 KONFIRMASI PEMBAYARAN
 </button>
 
-<div class="footer">
-Digital Ticketing Verification System
+<div class="note">
+Tombol aktif setelah bukti pembayaran diupload dan pernyataan dicentang.
 </div>
 
 </div>
 
-<div class="loading" id="loading">
-
-<div class="ring"></div>
-
-<div class="loading-text">
-PEMBAYARAN SEDANG DIPROSES
 </div>
 
-<div class="loading-sub">
-Silahkan tunggu, sistem sedang melakukan verifikasi transaksi...
+<div class="footer-note">
+🛡️ Pastikan nominal pembayaran sesuai. Pembayaran yang tidak sesuai tidak dapat diproses.
+</div>
+
 </div>
 
 </div>
 
 <script>
 
-const redirectURL =
-"https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/";
+let totalSeconds = 179;
 
-const fileInput =
-document.getElementById("bukti");
+const countdown = document.getElementById('countdown');
 
-const check =
-document.getElementById("check");
-
-const btn =
-document.getElementById("submitBtn");
-
-const preview =
-document.getElementById("preview");
-
-const previewImg =
-document.getElementById("previewImg");
-
-function validate(){
-
-if(
-fileInput.files.length > 0 &&
-check.checked
-){
-btn.disabled=false;
-btn.classList.add("active");
-}else{
-btn.disabled=true;
-btn.classList.remove("active");
-}
-
-}
-
-fileInput.addEventListener("change",function(){
-
-validate();
-
-if(this.files[0]){
-
-preview.style.display="block";
-
-previewImg.src=
-URL.createObjectURL(
-this.files[0]
-);
-
-}
-
-});
-
-check.addEventListener("change",validate);
-
-btn.disabled=true;
-
-btn.addEventListener("click",function(){
-
-document.getElementById("loading")
-.style.display="flex";
-
-setTimeout(()=>{
-window.location.href=redirectURL;
-},180000);
-
-});
-
-let time=180;
-
-const timer =
-document.getElementById("timer");
-
-const countdown =
 setInterval(()=>{
 
-let m =
-Math.floor(time/60);
+let m = Math.floor(totalSeconds/60);
+let s = totalSeconds%60;
 
-let s =
-time%60;
-
-timer.innerHTML=
-String(m).padStart(2,'0')
-+
-":"
-+
+countdown.innerHTML =
+String(m).padStart(2,'0') + ':' +
 String(s).padStart(2,'0');
 
-if(time<=0){
+if(totalSeconds>0){
+totalSeconds--;
+}
 
-clearInterval(countdown);
+},1000);
 
-window.location.href=
-redirectURL;
+const upload = document.getElementById('upload');
+const previewImg = document.getElementById('previewImg');
+const previewText = document.getElementById('previewText');
+const agree = document.getElementById('agree');
+const btn = document.getElementById('confirmBtn');
+
+function checkButton(){
+if(upload.files.length > 0 && agree.checked){
+btn.classList.add('active');
+}else{
+btn.classList.remove('active');
+}
+}
+
+upload.addEventListener('change',function(){
+
+const file = this.files[0];
+
+if(file){
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+previewImg.src = e.target.result;
+previewImg.style.display='block';
+previewText.style.display='none';
 
 }
 
-time--;
+reader.readAsDataURL(file);
 
-},1000);
+}
+
+checkButton();
+
+});
+
+agree.addEventListener('change',checkButton);
+
+btn.addEventListener('click',function(){
+
+if(btn.classList.contains('active')){
+alert('Pembayaran berhasil dikonfirmasi');
+}
+
+});
 
 </script>
 
