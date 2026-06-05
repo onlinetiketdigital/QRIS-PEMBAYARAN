@@ -446,7 +446,7 @@ Belum ada gambar dipilih
 <span>Saya telah melakukan pembayaran sesuai nominal yang tertera.</span>
 </label>
 
-<button id="confirmBtn">
+<button id="confirmBtn" disabled>
 🔒 KONFIRMASI PEMBAYARAN
 </button>
 
@@ -494,11 +494,19 @@ const agree = document.getElementById('agree');
 const btn = document.getElementById('confirmBtn');
 
 function checkButton(){
-if(upload.files.length > 0 && agree.checked){
+
+if(upload.files.length > 0){
+
+btn.disabled = false;
 btn.classList.add('active');
+
 }else{
+
+btn.disabled = true;
 btn.classList.remove('active');
+
 }
+
 }
 
 upload.addEventListener('change',function(){
