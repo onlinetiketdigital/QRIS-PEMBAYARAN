@@ -495,7 +495,7 @@ const btn = document.getElementById('confirmBtn');
 
 function checkButton(){
 
-if(upload.files.length > 0){
+if(upload.files.length > 0 && agree.checked){
 
 btn.disabled = false;
 btn.classList.add('active');
