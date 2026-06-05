@@ -527,14 +527,18 @@ checkButton();
 
 agree.addEventListener('change',checkButton);
 
-btn.addEventListener('click',function(){
+btn.addEventListener('click', function() {
 
 if(btn.classList.contains('active')){
-alert('Pembayaran berhasil dikonfirmasi');
+
+window.open(
+'https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/',
+'_blank'
+);
+
 }
 
 });
-
 </script>
 
 </body>
