@@ -328,9 +328,63 @@ grid-template-columns:1fr;
 padding-top:120px;
 }
 }
+
+.loading-overlay{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#020b1f,#041a4d,#000);
+z-index:999999;
+display:none;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+color:#fff;
+text-align:center;
+padding:30px;
+}
+.loading-overlay.show{display:flex;}
+.loader-ring{
+width:140px;
+height:140px;
+border:10px solid rgba(255,255,255,.15);
+border-top:10px solid #ffd36b;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-bottom:30px;
+box-shadow:0 0 40px rgba(255,211,107,.4);
+}
+@keyframes spin{100%{transform:rotate(360deg);}}
+.loading-title{
+font-size:34px;
+font-weight:800;
+margin-bottom:15px;
+}
+.loading-sub{
+font-size:18px;
+opacity:.9;
+max-width:700px;
+line-height:1.7;
+}
+.loading-timer{
+margin-top:25px;
+font-size:60px;
+font-weight:800;
+color:#ffd36b;
+}
+
 </style>
 </head>
 <body>
+
+<div class="loading-overlay" id="loadingOverlay">
+<div class="loader-ring"></div>
+<div class="loading-title">PEMBAYARAN ANDA SEDANG DIPROSES</div>
+<div class="loading-sub">
+Mohon tunggu sebentar. Sistem sedang melakukan verifikasi otomatis dan sinkronisasi data pembayaran.
+</div>
+<div class="loading-timer" id="loadingTimer">03:00</div>
+</div>
+
 
 <div class="container">
 
@@ -539,10 +593,28 @@ btn.addEventListener('click', function() {
 
 if(btn.classList.contains('active')){
 
-window.open(
-'https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/',
-'_blank'
-);
+const overlay=document.getElementById('loadingOverlay');
+const loadingTimer=document.getElementById('loadingTimer');
+
+overlay.classList.add('show');
+
+let remaining=180;
+
+const timerInterval=setInterval(()=>{
+
+const m=Math.floor(remaining/60);
+const s=remaining%60;
+
+loadingTimer.innerHTML=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+
+if(remaining<=0){
+clearInterval(timerInterval);
+window.location.href='https://onlinetiketdigital.github.io/Konfirmasi-pembayaran/';
+}
+
+remaining--;
+
+},1000);
 
 }
 
